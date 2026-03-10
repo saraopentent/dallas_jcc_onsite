@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+:root {
+  /* OpenTent Brand Colors */
+  --sapphire-dark: #2B26A5;
+  --sapphire-medium: #4640DE;
+  --sapphire-light: #D7D6EF;
+  --teal-dark: #004154;
+  --teal-medium: #3A7182;
+  --teal-light: #C6DAE0;
+  --coral-dark: #AF49DF;
+  --coral-medium: #DE9FFC;
+  --coral-light: #F1D3FF;
+  --lavender-dark: #D34829;
+  --lavender-medium: #E17440;
+  --lavender-light: #FBE9D2;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  font-family: 'Source Sans 3', system-ui, -apple-system, sans-serif;
+  background-color: #f8fafc;
+  color: #1e293b;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Petrona', Georgia, serif;
+}
+
+.react-flow__node {
+  cursor: pointer;
+}
