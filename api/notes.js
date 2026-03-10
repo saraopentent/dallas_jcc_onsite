@@ -5,20 +5,22 @@ const BLOB_KEY = 'jcc-notes.json';
 export default async function handler(req, res) {
   if (req.method === 'GET') {
     try {
-      // List all blobs to find ours
       const { blobs } = await list();
       const blob = blobs.find(b => b.pathname === BLOB_KEY);
       if (!blob) {
         return res.status(200).json({});
       }
-      const fetchUrl = blob.downloadUrl || blob.url;
-      const response = await fetch(fetchUrl);
+      const response = await fetch(blob.url, {
+        headers: {
+          Authorization: `Bearer ${process.env.BLOB_READ_WRITE_TOKEN}`,
+        },
+      });
       if (!response.ok) {
         return res.status(200).json({});
       }
       const data = await response.json();
       return res.status(200).json(data);
-    } catch (err) {
+    } catch {
       return res.status(200).json({});
     }
   }
