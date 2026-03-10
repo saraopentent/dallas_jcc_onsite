@@ -5,7 +5,7 @@
  */
 
 export const departments = [
-  { id: 'membership', name: 'Membership (Core)', color: '#2B26A5' },  // Dark Sapphire
+  { id: 'membership', name: 'Membership', color: '#2B26A5' },  // Dark Sapphire
   { id: 'camps', name: 'Camps', color: '#004154' },            // Dark Teal
   { id: 'preschool', name: 'Preschool', color: '#3A7182' },    // Medium Teal
   { id: 'fitness', name: 'Fitness & Aquatics', color: '#AF49DF' },  // Dark Coral
@@ -19,6 +19,7 @@ export const departments = [
 export const systems = [
   // Salesforce (consolidated: Avocado interface for Membership + direct SF for Finance)
   { id: 'salesforce', name: 'Salesforce', department: 'shared', category: 'system',
+    showInDepartments: ['membership', 'finance'],
     businessFunction: 'CRM, Registration & Financial Operations',
     features: [
       // Avocado interface (Membership)

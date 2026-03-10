@@ -84,7 +84,11 @@ function SoftwareView({ systemsData, onNotesChange }) {
               {sys.category === 'new-feature' && <span style={badge('#4640DE')}>New</span>}
             </td>
             <td style={td}>{sys.businessFunction}</td>
-            <td style={td}>{deptMap[sys.department] || sys.department}</td>
+            <td style={td}>
+              {[sys.department, ...(sys.showInDepartments || [])]
+                .map(d => deptMap[d] || d)
+                .join(', ')}
+            </td>
             <NotesCell notes={sys.notes} onChange={(newNotes) => onNotesChange(sys.id, newNotes)} />
           </tr>
         ))}
@@ -96,7 +100,9 @@ function SoftwareView({ systemsData, onNotesChange }) {
 function DepartmentView({ systemsData, onNotesChange }) {
   const grouped = {};
   for (const dept of departments) {
-    grouped[dept.id] = systemsData.filter(s => s.department === dept.id);
+    grouped[dept.id] = systemsData.filter(s =>
+      s.department === dept.id || (s.showInDepartments && s.showInDepartments.includes(dept.id))
+    );
   }
 
   return (
