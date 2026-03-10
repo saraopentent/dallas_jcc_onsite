@@ -20,7 +20,7 @@ export const systems = [
   // Salesforce (consolidated: Avocado interface for Membership + direct SF for Finance)
   { id: 'salesforce', name: 'Salesforce', department: 'shared', category: 'system',
     showInDepartments: ['membership', 'finance'],
-    businessFunction: 'CRM, Registration & Financial Operations',
+    businessFunction: 'CRM, Registration, & Financial Operations',
     features: [
       // Avocado interface (Membership)
       'Preschool Registration', 'Program Registration', 'Membership Management',
