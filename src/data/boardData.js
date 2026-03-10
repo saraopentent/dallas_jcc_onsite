@@ -17,11 +17,35 @@ export const departments = [
 ];
 
 export const systems = [
-  // Membership & Programming
-  { id: 'avocado', name: 'Avocado (Salesforce)', department: 'membership', category: 'system',
-    businessFunction: 'CRM & Registration',
-    features: ['Preschool Registration', 'Program Registration', 'Membership Management', 'Membership Portal', 'Camp Registration', 'Create Prompt Groups', 'Point of Sale'],
-    notes: ['Central CRM — used across most departments', 'Exploring/figuring out voucher for missed sessions', 'Avo contract through 2028; but took meetings w/ Daxko and Amilia to see what else is out there', 'Permissions get in the way of folks setting programs up in Avocado', 'No communication between Avo and marketing systems - manually pulling mailing lists', 'Likes using Cases for these requests!', 'System not integrated with agency programming calendar', 'We didn\'t put the staffing structure into place for Salesforce early enough'],
+  // Salesforce (consolidated: Avocado interface for Membership + direct SF for Finance)
+  { id: 'salesforce', name: 'Salesforce', department: 'shared', category: 'system',
+    businessFunction: 'CRM, Registration & Financial Operations',
+    features: [
+      // Avocado interface (Membership)
+      'Preschool Registration', 'Program Registration', 'Membership Management',
+      'Membership Portal', 'Camp Registration', 'Create Prompt Groups', 'Point of Sale',
+      // Direct Salesforce (Finance)
+      'Refunds & Credits', 'Payment Transfers', 'Account Management', 'Membership Accounts',
+      'Data Storage', 'Record Creation', 'Billing Records',
+      'Financial Reporting', 'Membership Reporting', 'Product Setup', 'Program Product Creation',
+    ],
+    avocadoFeatures: [
+      'Preschool Registration', 'Program Registration', 'Membership Management',
+      'Membership Portal', 'Camp Registration', 'Create Prompt Groups', 'Point of Sale',
+    ],
+    notes: [
+      'Central CRM — used across most departments',
+      'Avocado is the primary user-facing interface for membership, camps, preschool, fitness',
+      'Avo contract through 2028; but took meetings w/ Daxko and Amilia to see what else is out there',
+      'Exploring/figuring out voucher for missed sessions',
+      'Permissions get in the way of folks setting programs up in Avocado',
+      'No communication between Avo and marketing systems - manually pulling mailing lists',
+      'Likes using Cases for these requests!',
+      'System not integrated with agency programming calendar',
+      'We didn\'t put the staffing structure into place for Salesforce early enough',
+      'Finance processes refunds and credit transfers in Avocado/Salesforce',
+      'Creates billing records from external systems (1ClassPro, UPace)',
+    ],
     comments: [
       { text: 'Form solution is so bad and painful!! Using Formstack, migrating to Monday.com', author: 'Hillary Dale', date: '2025-02-24T08:38:00Z' },
       { text: 'Specifically, no direct links to a form - have to navigate through their account', author: 'Hillary Dale', date: '2025-02-24T08:38:00Z' },
@@ -31,6 +55,8 @@ export const systems = [
       { text: 'Forms, basically! For Avo programs. Create then assign to an Avo program so registrants can fill out', author: 'Hillary Dale', date: '2025-02-25T10:32:00Z' },
       { text: 'Need to do in the back end, not Avo interface', author: 'Eva Jablow', date: '2025-02-25T10:32:00Z' },
       { text: 'Finance is creating these in Avocado', author: 'Hillary Dale', date: '2025-02-25T10:30:00Z' },
+      { text: 'Some membership reporting', author: 'Eva Jablow', date: '2025-02-25T10:30:00Z' },
+      { text: 'What is/should be reported from here versus Odoo?', author: 'Hillary Dale', date: '2025-02-25T10:30:00Z' },
     ] },
   { id: 'calendly', name: 'Calendly', department: 'membership', category: 'system',
     businessFunction: 'Tour Scheduling',
@@ -166,40 +192,6 @@ export const systems = [
       { text: 'No complex scheduling, not enough for all of what we need (thus interest in WhenIWork)', author: 'Eva Jablow', date: '2025-02-25T10:22:00Z' },
       { text: 'Permissions need to be reviewed so Dep Dir have info they need', author: 'Hillary Dale', date: '2025-02-25T10:22:00Z' },
     ] },
-  // Salesforce CRM functions used by Finance (via Avocado)
-  { id: 'sf-payments', name: 'Salesforce', department: 'finance', category: 'system',
-    businessFunction: 'Payment Adjustments / Refunds',
-    features: ['Refunds & Credits', 'Payment Transfers'],
-    notes: ['Finance processes refunds and credit transfers in Avocado/Salesforce'],
-    comments: [
-      { text: 'Refunding and moving people from one registration to another requires paper forms to request then finance processes in the system', author: 'Hillary Dale', date: '2025-02-24T08:38:00Z' },
-    ] },
-  { id: 'sf-accounts', name: 'Salesforce', department: 'finance', category: 'system',
-    businessFunction: 'Account Management',
-    features: ['Account Management', 'Membership Accounts'],
-    notes: [],
-    comments: [
-      { text: 'Finance is creating these in Avocado', author: 'Hillary Dale', date: '2025-02-25T10:30:00Z' },
-    ] },
-  { id: 'sf-data', name: 'Salesforce', department: 'finance', category: 'system',
-    businessFunction: 'Data Storage / Creation',
-    features: ['Data Storage', 'Record Creation', 'Billing Records'],
-    notes: ['Creates billing records from external systems (1ClassPro, UPace)'],
-    comments: [] },
-  { id: 'sf-reporting', name: 'Salesforce', department: 'finance', category: 'system',
-    businessFunction: 'Reporting',
-    features: ['Financial Reporting', 'Membership Reporting'],
-    notes: [],
-    comments: [
-      { text: 'Some membership reporting', author: 'Eva Jablow', date: '2025-02-25T10:30:00Z' },
-      { text: 'What is/should be reported from here versus Odoo?', author: 'Hillary Dale', date: '2025-02-25T10:30:00Z' },
-    ] },
-  { id: 'sf-products', name: 'Salesforce', department: 'finance', category: 'system',
-    businessFunction: 'Product Creation',
-    features: ['Product Setup', 'Program Product Creation'],
-    notes: [],
-    comments: [] },
-
   // Events & Activities
   { id: 'fmx', name: 'FMX', department: 'events', category: 'system',
     businessFunction: 'Facility Management',
@@ -387,30 +379,27 @@ export const systems = [
 
 export const integrations = [
   // Existing integrations
-  { id: 'int-avo-upace', source: 'avocado', target: 'upace', status: 'existing', label: 'One-way', notes: 'Ideal is 2-way!' },
-  { id: 'int-avo-campdoc', source: 'avocado', target: 'campdoc', status: 'manual', label: 'Manual bulk import' },
-  { id: 'int-avo-storypark', source: 'avocado', target: 'storypark', status: 'manual', label: 'Export registrations' },
-  { id: 'int-avo-calendly', source: 'avocado', target: 'calendly', status: 'potential', label: 'SF Integration' },
-  { id: 'int-avo-gofundme', source: 'avocado', target: 'gofundme', status: 'potential', label: 'SF Integration' },
+  { id: 'int-sf-upace', source: 'salesforce', target: 'upace', status: 'existing', label: 'One-way', notes: 'Ideal is 2-way!' },
+  { id: 'int-sf-campdoc', source: 'salesforce', target: 'campdoc', status: 'manual', label: 'Manual bulk import' },
+  { id: 'int-sf-storypark', source: 'salesforce', target: 'storypark', status: 'manual', label: 'Export registrations' },
+  { id: 'int-sf-calendly', source: 'salesforce', target: 'calendly', status: 'potential', label: 'SF Integration' },
+  { id: 'int-sf-gofundme', source: 'salesforce', target: 'gofundme', status: 'potential', label: 'SF Integration' },
 
   // Potential integrations
-  { id: 'int-fmx-avo', source: 'fmx', target: 'avocado', status: 'potential', label: 'Via Apiway' },
-  { id: 'int-eventive-avo', source: 'eventive', target: 'avocado', status: 'potential', label: 'Zapier / Open API' },
-  { id: 'int-relay-avo', source: 'relay', target: 'avocado', status: 'potential', label: 'SF Integration / Zapier' },
-  { id: 'int-odoo-avo', source: 'odoo', target: 'avocado', status: 'potential', label: 'Open API / Zapier' },
-  { id: 'int-monday-avo', source: 'monday', target: 'avocado', status: 'potential', label: 'SF Integration' },
-  { id: 'int-formstack-avo', source: 'formstack', target: 'avocado', status: 'potential', label: 'SF Integration' },
+  { id: 'int-fmx-sf', source: 'fmx', target: 'salesforce', status: 'potential', label: 'Via Apiway' },
+  { id: 'int-eventive-sf', source: 'eventive', target: 'salesforce', status: 'potential', label: 'Zapier / Open API' },
+  { id: 'int-relay-sf', source: 'relay', target: 'salesforce', status: 'potential', label: 'SF Integration / Zapier' },
+  { id: 'int-odoo-sf', source: 'odoo', target: 'salesforce', status: 'potential', label: 'Open API / Zapier' },
+  { id: 'int-monday-sf', source: 'monday', target: 'salesforce', status: 'potential', label: 'SF Integration' },
+  { id: 'int-formstack-sf', source: 'formstack', target: 'salesforce', status: 'potential', label: 'SF Integration' },
 
   // Existing tool connections
   { id: 'int-1class-mailchimp', source: '1classpro', target: 'mailchimp', status: 'potential', label: 'Can integrate' },
   { id: 'int-canva-zapier', source: 'canva', target: 'mailchimp', status: 'potential', label: 'Open API / Zapier' },
   { id: 'int-spivi-upace', source: 'spivi', target: 'upace', status: 'broken', label: 'Promised but never happened' },
 
-  // Cross-department Salesforce usage
-  { id: 'int-avo-sf-payments', source: 'avocado', target: 'sf-payments', status: 'existing', label: 'Same SF instance' },
-
   // WealthEngine potential integration
-  { id: 'int-wealthengine-avo', source: 'wealthengine', target: 'avocado', status: 'potential', label: 'Needs SF connection' },
+  { id: 'int-wealthengine-sf', source: 'wealthengine', target: 'salesforce', status: 'potential', label: 'Needs SF connection' },
 ];
 
 /**
