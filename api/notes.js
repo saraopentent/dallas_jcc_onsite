@@ -5,11 +5,12 @@ const BLOB_KEY = 'jcc-notes.json';
 export default async function handler(req, res) {
   if (req.method === 'GET') {
     try {
-      const { blobs } = await list({ prefix: BLOB_KEY });
-      if (blobs.length === 0) {
+      // List all blobs to find ours
+      const { blobs } = await list();
+      const blob = blobs.find(b => b.pathname === BLOB_KEY);
+      if (!blob) {
         return res.status(200).json({});
       }
-      const blob = blobs[0];
       const fetchUrl = blob.downloadUrl || blob.url;
       const response = await fetch(fetchUrl);
       if (!response.ok) {
@@ -18,7 +19,7 @@ export default async function handler(req, res) {
       const data = await response.json();
       return res.status(200).json(data);
     } catch (err) {
-      return res.status(200).json({ _debug: err.message });
+      return res.status(200).json({});
     }
   }
 
