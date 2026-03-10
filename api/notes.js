@@ -9,11 +9,16 @@ export default async function handler(req, res) {
       if (blobs.length === 0) {
         return res.status(200).json({});
       }
-      const response = await fetch(blobs[0].downloadUrl);
+      const blob = blobs[0];
+      const fetchUrl = blob.downloadUrl || blob.url;
+      const response = await fetch(fetchUrl);
+      if (!response.ok) {
+        return res.status(200).json({});
+      }
       const data = await response.json();
       return res.status(200).json(data);
-    } catch {
-      return res.status(200).json({});
+    } catch (err) {
+      return res.status(200).json({ _debug: err.message });
     }
   }
 
