@@ -1,16 +1,15 @@
-import { put, head, list } from '@vercel/blob';
+import { put, list } from '@vercel/blob';
 
 const BLOB_KEY = 'jcc-notes.json';
 
 export default async function handler(req, res) {
   if (req.method === 'GET') {
     try {
-      // Find the blob by listing with prefix
       const { blobs } = await list({ prefix: BLOB_KEY });
       if (blobs.length === 0) {
         return res.status(200).json({});
       }
-      const response = await fetch(blobs[0].url);
+      const response = await fetch(blobs[0].downloadUrl);
       const data = await response.json();
       return res.status(200).json(data);
     } catch {
@@ -22,7 +21,7 @@ export default async function handler(req, res) {
     try {
       const body = typeof req.body === 'string' ? req.body : JSON.stringify(req.body);
       await put(BLOB_KEY, body, {
-        access: 'public',
+        access: 'private',
         contentType: 'application/json',
         addRandomSuffix: false,
       });
