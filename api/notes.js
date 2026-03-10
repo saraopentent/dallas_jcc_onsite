@@ -21,15 +21,14 @@ export default async function handler(req, res) {
   if (req.method === 'POST') {
     try {
       const body = typeof req.body === 'string' ? req.body : JSON.stringify(req.body);
-      JSON.parse(body); // validate
       await put(BLOB_KEY, body, {
         access: 'public',
         contentType: 'application/json',
         addRandomSuffix: false,
       });
       return res.status(200).json({ ok: true });
-    } catch {
-      return res.status(400).json({ error: 'invalid json' });
+    } catch (err) {
+      return res.status(500).json({ error: err.message });
     }
   }
 
